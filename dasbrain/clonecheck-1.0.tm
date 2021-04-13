@@ -103,7 +103,7 @@ namespace eval ::dasbrain::clonecheck {
 		variable ips
 		variable lastnick
 		if {$lastnick ne {}} {
-			utimer 4 [list [namespace current]::getips_chan $channel]
+			utimer 4 [list [namespace current]::getips_chan $chan]
 		}
 		set getips {}
 		foreach u [chanlist $chan] {

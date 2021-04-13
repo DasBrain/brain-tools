@@ -46,6 +46,13 @@ namespace eval ::dasbrain::chanserv {
 		}
 	}
 	
+	bind invt - * [namespace current]::oninvite
+	proc oninvite {nick uhost chan invitee} {
+		if {$invitee eq $::botnick && [validchan $chan] && ![channel get $chan inactive]} {
+			putquick "JOIN $chan"
+		}
+	}
+	
 }
 
 putlog "chanserv by DasBrain (#John @ Quakenet) loaded"
