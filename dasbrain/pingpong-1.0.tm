@@ -20,7 +20,7 @@ namespace eval ::dasbrain::pingpong {
 	
 	proc ping {nick uhost handle chan arg} {
 		if {![channel get $chan pingpong]} {return}
-		if {[matchatttr $handle f|f $chan] || ![botisop $chan] || (rand() * 100 > [channel get $chan pingpong-kickchance])} {
+		if {[matchattr $handle f|f $chan] || ![botisop $chan] || (rand() * 100 > [channel get $chan pingpong-kickchance])} {
 			putmsg $chan "PONG"
 		} else {
 			putkick $chan $nick "PONG"
