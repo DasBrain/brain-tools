@@ -57,7 +57,7 @@ namespace eval ::dasbrain::clonecheck {
 				set info [dict get $ips $cip]
 				if {[dict size $info] > 1} {
 					if {$lastnick eq {}} {
-						reportclones $clip
+						reportclones $cip
 					} else {
 						lappend cloneips $cip
 					}
