@@ -36,7 +36,7 @@ namespace eval ::dasbrain::potato {
 		variable punishlist [dict create]
 	}
 	
-	proc potato {nick uhost handle chan arg} {
+	proc trigger {nick uhost handle chan arg} {
 		variable state
 		if {![channel get $chan potato]} {
 			dict unset state $chan
@@ -61,8 +61,9 @@ namespace eval ::dasbrain::potato {
 			}
 		}
 		if {[dict exists $state $chan potato]} {
-			if {$nick ne [dict get $chan potato]} {
+			if {$nick ne [dict get $state $chan potato]} {
 				putnotc $nick "You don't have the potato. Wait for your turn."
+				return 0
 			}
 		}
 		set target [lindex [split $arg] 0]
@@ -75,9 +76,10 @@ namespace eval ::dasbrain::potato {
 			killutimer [dict get $state $chan utimer]
 		}
 		putquick "PRIVMSG $chan :$nick gives the hot potato to $target. $target has now [duration $potatotime] to give the potato to someone else."
-		dict set state $chan utimer [utimer $potatotime [list timout $chan]]
+		dict set state $chan utimer [utimer $potatotime [list [namespace current]::timout $chan]]
 		dict set state $chan potato $target
 		dict set state $chan potatouhost $target![getchanhost $target $chan]
+		return 1
 	}
 	
 	proc timout {chan} {
@@ -113,8 +115,9 @@ namespace eval ::dasbrain::potato {
 			return 0
 		} elseif {[isaway $nick $chan]} {
 			putmsg $chan "$src, $nick seems to be busy with other things."
+			return 0
 		} else {
-			return 1;
+			return 1
 		}
 	}
 	
@@ -151,4 +154,4 @@ namespace eval ::dasbrain::potato {
 	
 }
 
-putlog "pingpong by DasBrain (#John @ Quakenet) loaded"
+putlog "potato by DasBrain (#John @ Quakenet) loaded"
