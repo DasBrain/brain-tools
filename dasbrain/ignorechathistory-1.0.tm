@@ -1,6 +1,6 @@
 package require eggdrop 1.9.0
 
-package provide dasbrain::ignorechathistory
+package provide dasbrain::ignorechathistory 1.0
 
 namespace eval ::dasbrain::ignorechathistory {
 	if {![info exists batches]} {
@@ -26,7 +26,7 @@ proc ::dasbrain::ignorechathistory::batch {from keyword text tag} {
 	return 0
 }
 
-proc ::dasbrain::ignorechathistory::batch {from keyword text tag} {
+proc ::dasbrain::ignorechathistory::msg {from keyword text tag} {
 	variable batches
 	return [expr {[dict exists $tag batch] && [dict exists $batches [dict get $tag batch]]}]
 }
