@@ -328,17 +328,17 @@ namespace eval ::dasbrain::interp {
 				if {[string tolower $chan] != [string tolower $channel]} {
 					return
 				}
-				set buf
+				::set buf {}
 				while {[llength $args]} {
-					set args [lassign $args opt]
-					set flag [expr {[string index $opt 0] in {+ -}}]
+					::set args [lassign $args opt]
+					::set flag [expr {[string index $opt 0] in {+ -}}]
 					if {$flag} {
-						set name [string range $opt 1 end]
+						::set name [string range $opt 1 end]
 					} else {
-						set name $opt
-						set args [lassign $args value]
+						::set name $opt
+						::set args [lassign $args value]
 					}
-					set skip [expr {[string match -nocase need-* $name] || [string match -nocase security-* $name]}]
+					::set skip [expr {[string match -nocase need-* $name] || [string match -nocase security-* $name]}]
 					if {!$skip} {
 						lappend buf $opt
 						if {!$flag} {lappend buf $value}
@@ -360,7 +360,7 @@ namespace eval ::dasbrain::interp {
 				if {[string tolower $chan] != [string tolower $channel]} {
 					return
 				}
-				channel set $channel {*}$args
+				::channel set $channel {*}$args
 			}
 			proc remove {args} {}
 		}
