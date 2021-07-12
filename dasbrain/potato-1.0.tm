@@ -145,7 +145,7 @@ namespace eval ::dasbrain::potato {
 		if {![dict exists $punishlist $chan]} {return}
 		dict for {k v} [dict get $punishlist $chan] {
 			if {[matchaddr $k $mask]} {
-				dict unset punishlist $k
+				dict unset punishlist $chan $k
 				putkick $chan $nick "[dict get $v nick] left with a hot potato in their pockets @ [clock format [dict get $v time]]."
 				return
 			}
