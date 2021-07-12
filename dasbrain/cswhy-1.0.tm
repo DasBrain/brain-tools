@@ -28,7 +28,7 @@ proc ::dasbrain::cswhy::onmode {nick uhost hand chan mc target} {
 }
 
 proc ::dasbrain::cswhy::onnotice {nick uhost handle msg target} {
-	if {[regexp {has flags \002[^\002]+\002 in \002([^\002]+)\002 because they match the mask \002[^\002]+\002.} $msg - chan]
+	if {[regexp {has flags \002[^\002]+\002 in \002([^\002]+)\002 } $msg - chan]
 		|| [regexp {has no special access to \002([^\002]+)\002} $msg - chan]} {
 		if {[channel get $chan cswhy]} {
 			putnotc @$chan $msg
